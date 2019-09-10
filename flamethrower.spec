@@ -16,7 +16,7 @@ Source0:	https://github.com/DNS-OARC/%{name}/archive/%{commit}/%{name}-%{commit}
 
 Patch1:		flamethrower-0.10-libuv.patch
 
-BuildRequires:	gcc, make
+BuildRequires:	gcc-c++, make
 BuildRequires:	cmake
 BuildRequires:	libuv-devel
 BuildRequires:	ldns-devel
