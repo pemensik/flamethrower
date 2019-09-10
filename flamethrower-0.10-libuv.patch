@@ -1,0 +1,35 @@
+From 9cea7f1cbf770243b878ddacdf1368989003a3f7 Mon Sep 17 00:00:00 2001
+From: Petr Mensik <pemensik@redhat.com>
+Date: Tue, 10 Sep 2019 20:18:50 +0200
+Subject: [PATCH] Flame requires explicit uv link
+
+flame does not compile without it, since main.cpp is using uv_refs but
+does not explicitly reference it itself.
+---
+ CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 440d5de..b96448f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -76,6 +76,7 @@ target_include_directories(flamecore
+ 
+ target_link_libraries(flamecore
+         PRIVATE ${LIBUV_LDFLAGS}
++        PRIVATE ${LIBUV_LIBRARIES}
+         PRIVATE ${LIBLDNS_LDFLAGS}
+         PRIVATE ${LIBLDNS_LIBRARIES}
+         PRIVATE ${LIBGNUTLS_LDFLAGS}
+@@ -89,6 +90,8 @@ add_executable(flame
+ 
+ target_link_libraries(flame
+         PRIVATE flamecore
++        PRIVATE ${LIBUV_LDFLAGS}
++        PRIVATE ${LIBUV_LIBRARIES}
+         )
+ 
+ add_executable(tests
+-- 
+2.20.1
+
