@@ -56,7 +56,7 @@ popd
 %files
 %doc README.md
 %license LICENSE
-%{_sbindir}/flame
+%{_bindir}/flame
 %{_libdir}/libflamecore.so
 %{_mandir}/man1/flame.1*
 
@@ -65,6 +65,7 @@ popd
 * Wed Oct 02 2019 Petr Menšík <pemensik@redhat.com> - 0.10-2
 - Use make install, improve descriptions
 - Correct permissions of manual
+- Use bindir
 
 * Tue Sep 10 2019 Petr Menšík <pemensik@redhat.com> - 0.10-1
 - Initial release

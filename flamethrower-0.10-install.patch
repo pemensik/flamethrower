@@ -1,4 +1,4 @@
-From 93714cc49f4e4b745accc59d3a341a86453ee48b Mon Sep 17 00:00:00 2001
+From 90bc7f58543786fe784b90ec2e8a00e9494b2f8f Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Petr=20Men=C5=A1=C3=ADk?= <pemensik@redhat.com>
 Date: Thu, 3 Oct 2019 00:07:40 +0200
 Subject: [PATCH] Provide install target
@@ -12,21 +12,22 @@ install suffix.
 
 Signed-off-by: Petr Menšík <pemensik@redhat.com>
 ---
- CMakeLists.txt | 4 ++++
- 1 file changed, 4 insertions(+)
+ CMakeLists.txt | 5 +++++
+ 1 file changed, 5 insertions(+)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index b501347..3e982e6 100644
+index b501347..ca08b52 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -109,3 +109,7 @@ target_include_directories(tests
+@@ -109,3 +109,8 @@ target_include_directories(tests
  target_link_libraries(tests
          PRIVATE flamecore
          )
 +
 +install(TARGETS flame flamecore
 +        RUNTIME DESTINATION bin
-+        LIBRARY DESTINATION lib${LIB_SUFFIX})
++        LIBRARY DESTINATION lib${LIB_SUFFIX}
++        ARCHIVE DESTINATION lib/static)
 -- 
 2.20.1
 
