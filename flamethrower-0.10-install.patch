@@ -1,0 +1,32 @@
+From 93714cc49f4e4b745accc59d3a341a86453ee48b Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Petr=20Men=C5=A1=C3=ADk?= <pemensik@redhat.com>
+Date: Thu, 3 Oct 2019 00:07:40 +0200
+Subject: [PATCH] Provide install target
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+CMake provides easy way for installing built binaries.
+Add make install target with DESTDIR support. Support lib64
+install suffix.
+
+Signed-off-by: Petr Menšík <pemensik@redhat.com>
+---
+ CMakeLists.txt | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b501347..3e982e6 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -109,3 +109,7 @@ target_include_directories(tests
+ target_link_libraries(tests
+         PRIVATE flamecore
+         )
++
++install(TARGETS flame flamecore
++        RUNTIME DESTINATION bin
++        LIBRARY DESTINATION lib${LIB_SUFFIX})
+-- 
+2.20.1
+

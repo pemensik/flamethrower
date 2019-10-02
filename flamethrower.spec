@@ -1,20 +1,17 @@
-# SPEC file overview:
-# https://docs.fedoraproject.org/en-US/quick-docs/creating-rpm-packages/#con_rpm-spec-file-overview
-# Fedora packaging guidelines:
-# https://docs.fedoraproject.org/en-US/packaging-guidelines/
-
-%global commit v%{version}
 
 Name:		flamethrower
 Version:	0.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A DNS performance and functional testing utility
 
 License:	ASL 2.0
 URL:		https://github.com/DNS-OARC/flamethrower
-Source0:	https://github.com/DNS-OARC/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/DNS-OARC/flamethrower/pull/19
 Patch1:		flamethrower-0.10-libuv.patch
+# https://github.com/DNS-OARC/flamethrower/pull/20
+Patch2:		flamethrower-0.10-install.patch
 
 BuildRequires:	gcc-c++, make
 BuildRequires:	cmake
@@ -26,11 +23,13 @@ Requires:	ldns%{?_isa}
 Requires:	libuv%{?_isa}
 
 %description
-Flamethrower is a small, fast, configurable tool for functional testing, benchmarking,
-and stress testing DNS servers and networks. It supports IPv4, IPv6, UDP and TCP,
+Flamethrower is a small, fast, configurable tool for
+functional testing, benchmarking, and stress testing
+DNS servers and networks. It supports IPv4, IPv6, UDP and TCP,
 and has a modular system for generating queries used in the tests.
 
-It was built as an alternative to dnsperf, and many of the command line options are compatible.
+It was built as an alternative to dnsperf, and many
+of the command line options are compatible.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
@@ -39,18 +38,15 @@ mkdir build
 %build
 pushd build
 %cmake -DCMAKE_SKIP_BUILD_RPATH=TRUE ..
-make %{?_smp_mflags}
+%make_build
 popd
 
 
 %install
 pushd build
-# does not provide install target
-#%%make_install
-install -pD flame ${RPM_BUILD_ROOT}%{_sbindir}/flame
-install -pD libflamecore.so ${RPM_BUILD_ROOT}%{_libdir}/libflamecore.so
+%make_install
 popd
-install -pD man/flame.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/flame.1
+install -m 0644 -pD man/flame.1 ${RPM_BUILD_ROOT}%{_mandir}/man1/flame.1
 
 %check
 pushd build
@@ -66,6 +62,10 @@ popd
 
 
 %changelog
+* Wed Oct 02 2019 Petr Menšík <pemensik@redhat.com> - 0.10-2
+- Use make install, improve descriptions
+- Correct permissions of manual
+
 * Tue Sep 10 2019 Petr Menšík <pemensik@redhat.com> - 0.10-1
 - Initial release
 
