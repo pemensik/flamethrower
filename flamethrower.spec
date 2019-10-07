@@ -1,7 +1,7 @@
 
 Name:		flamethrower
 Version:	0.10
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A DNS performance and functional testing utility
 
 License:	ASL 2.0
@@ -19,8 +19,6 @@ BuildRequires:	libuv-devel
 BuildRequires:	ldns-devel
 BuildRequires:	gnutls-devel
 BuildRequires:	pandoc
-Requires:	ldns%{?_isa}
-Requires:	libuv%{?_isa}
 
 %description
 Flamethrower is a small, fast, configurable tool for
@@ -62,6 +60,9 @@ popd
 
 
 %changelog
+* Mon Oct 07 2019 Petr Menšík <pemensik@redhat.com> - 0.10-3
+- Remove explicit library requires
+
 * Wed Oct 02 2019 Petr Menšík <pemensik@redhat.com> - 0.10-2
 - Use make install, improve descriptions
 - Correct permissions of manual
